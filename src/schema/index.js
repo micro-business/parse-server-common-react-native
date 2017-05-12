@@ -1,3 +1,5 @@
+// @flow
+
 import BaseObject from './base-object';
 
 export { BaseObject };
