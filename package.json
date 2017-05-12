@@ -20,7 +20,8 @@
   "homepage": "https://bitbucket.org/microbusiness/micro-business-parse-server-common-react-native#readme",
   "dependencies": {
     "immutable": "^3.8.1",
-    "parse": "^1.9.2"
+    "parse": "^1.9.2",
+    "redux-saga": "^0.15.3"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
