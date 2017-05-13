@@ -1,6 +1,6 @@
 {
   "name": "micro-business-parse-server-common-react-native",
-  "version": "0.1.6",
+  "version": "0.1.7",
   "description": "Micro Business Parse Server Common React Native",
   "main": "./dist/index.js",
   "scripts": {
@@ -20,7 +20,7 @@
   "homepage": "https://bitbucket.org/microbusiness/micro-business-parse-server-common-react-native#readme",
   "dependencies": {
     "immutable": "^3.8.1",
-    "parse": "^1.9.2",
+    "parse": "git+https://github.com/allmaxgit/Parse-SDK-JS.git",
     "redux-saga": "^0.15.3",
     "uuid": "^3.0.1"
   },
