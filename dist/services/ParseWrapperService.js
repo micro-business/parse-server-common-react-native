@@ -1,185 +1,145 @@
-'use strict';
+Object.defineProperty(exports,"__esModule",{value:true});var _this=this;
 
-Object.defineProperty(exports, "__esModule", {
-  value: true
-});
+var _immutable=require('immutable');
+var _reactNative=require('parse/react-native');var _reactNative2=_interopRequireDefault(_reactNative);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var
 
-var _immutable = require('immutable');
+ParseWrapperService=function ParseWrapperService(){_classCallCheck(this,ParseWrapperService);};ParseWrapperService.
+createQuery=function(object,criteria){
+var query=new _reactNative2.default.Query(object);
 
-var _reactNative = require('parse/react-native');
+if(!criteria){
+return query;
+}
 
-var _reactNative2 = _interopRequireDefault(_reactNative);
+if(criteria.has('limit')){
+var value=criteria.get('limit');
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+if(value){
+query.limit(value);
+}
+}
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
+if(criteria.has('skip')){
+var _value=criteria.get('skip');
 
-var ParseWrapperService = function ParseWrapperService() {
-  _classCallCheck(this, ParseWrapperService);
-};
+if(_value){
+query.skip(_value);
+}
+}
 
-ParseWrapperService.createQuery = function (object, criteria) {
-  var query = new _reactNative2.default.Query(object);
+if(criteria.has('topMost')){
+var _value2=criteria.get('topMost');
 
-  if (!criteria) {
-    return query;
-  }
+if(_value2){
+query.descending('createdAt').limit(1);
+}
+}
 
-  if (criteria.has('limit')) {
-    var value = criteria.get('limit');
+if(criteria.has('field')){
+var field=criteria.get('field');
 
-    if (value) {
-      query.limit(value);
-    }
-  }
+if(field){
+query.select([field]);
+}
+}
 
-  if (criteria.has('skip')) {
-    var _value = criteria.get('skip');
+if(criteria.has('fields')){
+var fields=criteria.get('fields');
 
-    if (_value) {
-      query.skip(_value);
-    }
-  }
+if(fields){
+query.select(fields.toArray());
+}
+}
 
-  if (criteria.has('topMost')) {
-    var _value2 = criteria.get('topMost');
+if(criteria.has('inlcludeField')){
+var _field=criteria.get('inlcludeField');
 
-    if (_value2) {
-      query.descending('createdAt').limit(1);
-    }
-  }
+if(_field){
+query.include(_field);
+}
+}
 
-  if (criteria.has('field')) {
-    var field = criteria.get('field');
+if(criteria.has('inlcludeFields')){
+var _fields=criteria.get('inlcludeFields');
 
-    if (field) {
-      query.select([field]);
-    }
-  }
+if(_fields){
+_fields.forEach(function(field){return query.include(field);});
+}
+}
 
-  if (criteria.has('fields')) {
-    var fields = criteria.get('fields');
+if(criteria.has('ascending')){
+var _value3=criteria.get('ascending');
 
-    if (fields) {
-      query.select(fields.toArray());
-    }
-  }
+if(_value3){
+query.ascending(_value3);
+}
+}
 
-  if (criteria.has('inlcludeField')) {
-    var _field = criteria.get('inlcludeField');
+if(criteria.has('descending')){
+var _value4=criteria.get('descending');
 
-    if (_field) {
-      query.include(_field);
-    }
-  }
+if(_value4){
+query.descending(_value4);
+}
+}
 
-  if (criteria.has('inlcludeFields')) {
-    var _fields = criteria.get('inlcludeFields');
+return query;
+};ParseWrapperService.
 
-    if (_fields) {
-      _fields.forEach(function (field) {
-        return query.include(field);
-      });
-    }
-  }
+createQueryIncludingObjectIds=function(object,query,criteria){
+if(!criteria){
+return query;
+}
 
-  if (criteria.has('ascending')) {
-    var _value3 = criteria.get('ascending');
+var conditions=criteria.get('conditions');
 
-    if (_value3) {
-      query.ascending(_value3);
-    }
-  }
+if(!conditions){
+return query;
+}
 
-  if (criteria.has('descending')) {
-    var _value4 = criteria.get('descending');
+if(conditions.has('id')){
+var objectId=conditions.get('id');
 
-    if (_value4) {
-      query.descending(_value4);
-    }
-  }
+if(objectId){
+var objectIdQuery=new _reactNative2.default.Query(object);
 
-  return query;
-};
+objectIdQuery.equalTo('objectId',objectId);
 
-ParseWrapperService.createQueryIncludingObjectIds = function (object, query, criteria) {
-  if (!criteria) {
-    return query;
-  }
+return ParseWrapperService.createOrQuery(_immutable.List.of(objectIdQuery,query));
+}
+}
 
-  var conditions = criteria.get('conditions');
+if(conditions.has('ids')){
+var objectIds=conditions.get('ids');
 
-  if (!conditions) {
-    return query;
-  }
+if(objectIds&&!objectIds.isEmpty()){
+return ParseWrapperService.createOrQuery(
+objectIds.
+map(function(objectId){
+var objectIdQuery=new _reactNative2.default.Query(object);
 
-  if (conditions.has('id')) {
-    var objectId = conditions.get('id');
+objectIdQuery.equalTo('objectId',objectId);
 
-    if (objectId) {
-      var objectIdQuery = new _reactNative2.default.Query(object);
+return objectIdQuery;
+}).
+push(query));
 
-      objectIdQuery.equalTo('objectId', objectId);
+}
+}
 
-      return ParseWrapperService.createOrQuery(_immutable.List.of(objectIdQuery, query));
-    }
-  }
+return query;
+};ParseWrapperService.
 
-  if (conditions.has('ids')) {
-    var objectIds = conditions.get('ids');
-
-    if (objectIds && !objectIds.isEmpty()) {
-      return ParseWrapperService.createOrQuery(objectIds.map(function (objectId) {
-        var objectIdQuery = new _reactNative2.default.Query(object);
-
-        objectIdQuery.equalTo('objectId', objectId);
-
-        return objectIdQuery;
-      }).push(query));
-    }
-  }
-
-  return query;
-};
-
-ParseWrapperService.createOrQuery = function (queries) {
-  return _reactNative2.default.Query.or.apply(undefined, queries.toArray());
-};
-
-ParseWrapperService.createUserQuery = function () {
-  return new _reactNative2.default.Query(_reactNative2.default.User);
-};
-
-ParseWrapperService.getConfig = function () {
-  return _reactNative2.default.Config.get();
-};
-
-ParseWrapperService.getCachedConfig = function () {
-  return _reactNative2.default.Config.current();
-};
-
-ParseWrapperService.getCurrentUser = function () {
-  return _reactNative2.default.User.current();
-};
-
-ParseWrapperService.getCurrentUserAsync = function () {
-  return _reactNative2.default.User.currentAsync();
-};
-
-ParseWrapperService.createNewUser = function () {
-  return new _reactNative2.default.User();
-};
-
-ParseWrapperService.createUserWithoutData = function (userId) {
-  return _reactNative2.default.User.createWithoutData(userId);
-};
-
-ParseWrapperService.logIn = function (username, password) {
-  return _reactNative2.default.User.logIn(username, password);
-};
-
-ParseWrapperService.logOut = function () {
-  return _reactNative2.default.User.logOut();
-};
-
-exports.default = ParseWrapperService;
+createOrQuery=function(queries){return(
+_reactNative2.default.Query.or.apply(_this,queries.toArray()));};ParseWrapperService.
+createUserQuery=function(){return new _reactNative2.default.Query(_reactNative2.default.User);};ParseWrapperService.
+getConfig=function(){return _reactNative2.default.Config.get();};ParseWrapperService.
+getCachedConfig=function(){return _reactNative2.default.Config.current();};ParseWrapperService.
+getCurrentUser=function(){return _reactNative2.default.User.current();};ParseWrapperService.
+getCurrentUserAsync=function(){return _reactNative2.default.User.currentAsync();};ParseWrapperService.
+createNewUser=function(){return new _reactNative2.default.User();};ParseWrapperService.
+createUserWithoutData=function(userId){return(
+_reactNative2.default.User.createWithoutData(userId));};ParseWrapperService.
+logIn=function(username,password){return(
+_reactNative2.default.User.logIn(username,password));};ParseWrapperService.
+logOut=function(){return _reactNative2.default.User.logOut();};exports.default=ParseWrapperService;

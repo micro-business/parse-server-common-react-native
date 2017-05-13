@@ -1,6 +1,6 @@
 {
   "name": "micro-business-parse-server-common-react-native",
-  "version": "0.1.5",
+  "version": "0.1.6",
   "description": "Micro Business Parse Server Common React Native",
   "main": "./dist/index.js",
   "scripts": {
@@ -28,9 +28,8 @@
     "babel-cli": "^6.24.1",
     "babel-eslint": "^7.2.3",
     "babel-jest": "^20.0.1",
-    "babel-preset-es2015": "^6.24.1",
     "babel-preset-flow": "^6.23.0",
-    "babel-preset-stage-0": "^6.24.1",
+    "babel-preset-react-native-stage-0": "^1.0.1",
     "eslint": "^3.19.0",
     "eslint-config-airbnb": "^14.1.0",
     "eslint-plugin-import": "^2.2.0",

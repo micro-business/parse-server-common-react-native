@@ -1,4 +1,7 @@
 {
-  "presets": ["es2015", "flow", "stage-0"],
+  "presets": [
+    "flow",
+    "react-native-stage-0",
+  ],
   "plugins": [],
 }
