@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.watchSignInWithUsernameAndPasswor = exports.watchSignUpWithUsernameAndPasswor = exports.watchGetCurrentUser = undefined;
+exports.watchSignInWithUsernameAndPassword = exports.watchSignUpWithUsernameAndPassword = exports.watchGetCurrentUser = undefined;
 
 var _GetCurrentUser = require('./GetCurrentUser');
 
@@ -20,5 +20,5 @@ var _SignInWithUsernameAndPassword2 = _interopRequireDefault(_SignInWithUsername
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 exports.watchGetCurrentUser = _GetCurrentUser2.default;
-exports.watchSignUpWithUsernameAndPasswor = _SignUpWithUsernameAndPassword2.default;
-exports.watchSignInWithUsernameAndPasswor = _SignInWithUsernameAndPassword2.default;
+exports.watchSignUpWithUsernameAndPassword = _SignUpWithUsernameAndPassword2.default;
+exports.watchSignInWithUsernameAndPassword = _SignInWithUsernameAndPassword2.default;

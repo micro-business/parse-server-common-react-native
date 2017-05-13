@@ -1,5 +1,5 @@
 // @flow
 
 export watchGetCurrentUser from './GetCurrentUser';
-export watchSignUpWithUsernameAndPasswor from './SignUpWithUsernameAndPassword';
-export watchSignInWithUsernameAndPasswor from './SignInWithUsernameAndPassword';
+export watchSignUpWithUsernameAndPassword from './SignUpWithUsernameAndPassword';
+export watchSignInWithUsernameAndPassword from './SignInWithUsernameAndPassword';
