@@ -35,13 +35,13 @@ export default (state = initialState, action) => {
   case ActionTypes.USER_ACCESS_GET_CURRENT_USER_IN_PROGRESS:
     return state.set('getCurrentUserStatus', Status.IN_PROGRESS);
 
-  case ActionTypes.USER_ACCESS_SIGNUP_WITH_EMAIL_AND_PASSWORD_SUCCEEDED:
+  case ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_SUCCEEDED:
     return state
         .set('signUpStatus', Status.SUCCEEDED)
         .set('userExists', true)
         .set('userInfo', action.payload.get('userInfo'));
 
-  case ActionTypes.USER_ACCESS_SIGNUP_WITH_EMAIL_AND_PASSWORD_FAILED:
+  case ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_FAILED:
     return state
         .set('signUpStatus', Status.FAILED)
         .set('userExists', false)
@@ -56,13 +56,13 @@ export default (state = initialState, action) => {
   case ActionTypes.USER_ACCESS_SIGNUP_IN_PROGRESS:
     return state.set('signUpStatus', Status.IN_PROGRESS);
 
-  case ActionTypes.USER_ACCESS_SIGNIN_WITH_EMAIL_AND_PASSWORD_SUCCEEDED:
+  case ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_SUCCEEDED:
     return state
         .set('signInStatus', Status.SUCCEEDED)
         .set('userExists', true)
         .set('userInfo', action.payload.get('userInfo'));
 
-  case ActionTypes.USER_ACCESS_SIGNIN_WITH_EMAIL_AND_PASSWORD_FAILED:
+  case ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_FAILED:
     return state
         .set('signInStatus', Status.FAILED)
         .set('userExists', false)

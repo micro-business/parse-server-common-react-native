@@ -9,14 +9,14 @@ exports.getCurrentUserSucceeded = getCurrentUserSucceeded;
 exports.getCurrentUserFailed = getCurrentUserFailed;
 exports.resetGetCurrentUserStatus = resetGetCurrentUserStatus;
 exports.getCurrentUserInProgress = getCurrentUserInProgress;
-exports.signUpWithEmailAndPassword = signUpWithEmailAndPassword;
-exports.signUpWithEmailAndPasswordSucceeded = signUpWithEmailAndPasswordSucceeded;
-exports.signUpWithEmailAndPasswordFailed = signUpWithEmailAndPasswordFailed;
+exports.signUpWithUsernameAndPassword = signUpWithUsernameAndPassword;
+exports.signUpWithUsernameAndPasswordSucceeded = signUpWithUsernameAndPasswordSucceeded;
+exports.signUpWithUsernameAndPasswordFailed = signUpWithUsernameAndPasswordFailed;
 exports.resetSignUpStatus = resetSignUpStatus;
 exports.signUpInProgress = signUpInProgress;
-exports.signInWithEmailAndPassword = signInWithEmailAndPassword;
-exports.signInWithEmailAndPasswordSucceeded = signInWithEmailAndPasswordSucceeded;
-exports.signInWithEmailAndPasswordFailed = signInWithEmailAndPasswordFailed;
+exports.signInWithUsernameAndPassword = signInWithUsernameAndPassword;
+exports.signInWithUsernameAndPasswordSucceeded = signInWithUsernameAndPasswordSucceeded;
+exports.signInWithUsernameAndPasswordFailed = signInWithUsernameAndPasswordFailed;
 exports.resetSignInStatus = resetSignInStatus;
 exports.signInInProgress = signInInProgress;
 
@@ -76,27 +76,28 @@ function getCurrentUserInProgress(payload) {
   };
 }
 
-function signUpWithEmailAndPassword(emailAddress, password) {
+function signUpWithUsernameAndPassword(username, password, emailAddress) {
   return {
-    type: _ActionTypes2.default.USER_ACCESS_SIGNUP_WITH_EMAIL_AND_PASSWORD,
+    type: _ActionTypes2.default.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD,
     payload: (0, _immutable.Map)({
       operationId: (0, _v2.default)(),
-      emailAddress: emailAddress,
-      password: password
+      username: username,
+      password: password,
+      emailAddress: emailAddress
     })
   };
 }
 
-function signUpWithEmailAndPasswordSucceeded(payload) {
+function signUpWithUsernameAndPasswordSucceeded(payload) {
   return {
-    type: _ActionTypes2.default.USER_ACCESS_SIGNUP_WITH_EMAIL_AND_PASSWORD_SUCCEEDED,
+    type: _ActionTypes2.default.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_SUCCEEDED,
     payload: payload
   };
 }
 
-function signUpWithEmailAndPasswordFailed(payload) {
+function signUpWithUsernameAndPasswordFailed(payload) {
   return {
-    type: _ActionTypes2.default.USER_ACCESS_SIGNUP_WITH_EMAIL_AND_PASSWORD_FAILED,
+    type: _ActionTypes2.default.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_FAILED,
     payload: payload
   };
 }
@@ -115,27 +116,28 @@ function signUpInProgress(payload) {
   };
 }
 
-function signInWithEmailAndPassword(emailAddress, password) {
+function signInWithUsernameAndPassword(username, password, emailAddress) {
   return {
-    type: _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_EMAIL_AND_PASSWORD,
+    type: _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD,
     payload: (0, _immutable.Map)({
       operationId: (0, _v2.default)(),
-      emailAddress: emailAddress,
-      password: password
+      username: username,
+      password: password,
+      emailAddress: emailAddress
     })
   };
 }
 
-function signInWithEmailAndPasswordSucceeded(payload) {
+function signInWithUsernameAndPasswordSucceeded(payload) {
   return {
-    type: _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_EMAIL_AND_PASSWORD_SUCCEEDED,
+    type: _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_SUCCEEDED,
     payload: payload
   };
 }
 
-function signInWithEmailAndPasswordFailed(payload) {
+function signInWithUsernameAndPasswordFailed(payload) {
   return {
-    type: _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_EMAIL_AND_PASSWORD_FAILED,
+    type: _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_FAILED,
     payload: payload
   };
 }

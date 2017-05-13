@@ -48,27 +48,32 @@ export function getCurrentUserInProgress(payload) {
   };
 }
 
-export function signUpWithEmailAndPassword(emailAddress, password) {
+export function signUpWithUsernameAndPassword(
+  username: string,
+  password: string,
+  emailAddress: ?string,
+) {
   return {
-    type: ActionTypes.USER_ACCESS_SIGNUP_WITH_EMAIL_AND_PASSWORD,
+    type: ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD,
     payload: Map({
       operationId: uuid(),
-      emailAddress,
+      username,
       password,
+      emailAddress,
     }),
   };
 }
 
-export function signUpWithEmailAndPasswordSucceeded(payload) {
+export function signUpWithUsernameAndPasswordSucceeded(payload) {
   return {
-    type: ActionTypes.USER_ACCESS_SIGNUP_WITH_EMAIL_AND_PASSWORD_SUCCEEDED,
+    type: ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_SUCCEEDED,
     payload,
   };
 }
 
-export function signUpWithEmailAndPasswordFailed(payload) {
+export function signUpWithUsernameAndPasswordFailed(payload) {
   return {
-    type: ActionTypes.USER_ACCESS_SIGNUP_WITH_EMAIL_AND_PASSWORD_FAILED,
+    type: ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_FAILED,
     payload,
   };
 }
@@ -87,27 +92,32 @@ export function signUpInProgress(payload) {
   };
 }
 
-export function signInWithEmailAndPassword(emailAddress, password) {
+export function signInWithUsernameAndPassword(
+  username: string,
+  password: string,
+  emailAddress: ?string,
+) {
   return {
-    type: ActionTypes.USER_ACCESS_SIGNIN_WITH_EMAIL_AND_PASSWORD,
+    type: ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD,
     payload: Map({
       operationId: uuid(),
-      emailAddress,
+      username,
       password,
+      emailAddress,
     }),
   };
 }
 
-export function signInWithEmailAndPasswordSucceeded(payload) {
+export function signInWithUsernameAndPasswordSucceeded(payload) {
   return {
-    type: ActionTypes.USER_ACCESS_SIGNIN_WITH_EMAIL_AND_PASSWORD_SUCCEEDED,
+    type: ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_SUCCEEDED,
     payload,
   };
 }
 
-export function signInWithEmailAndPasswordFailed(payload) {
+export function signInWithUsernameAndPasswordFailed(payload) {
   return {
-    type: ActionTypes.USER_ACCESS_SIGNIN_WITH_EMAIL_AND_PASSWORD_FAILED,
+    type: ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_FAILED,
     payload,
   };
 }

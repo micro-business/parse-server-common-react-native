@@ -44,10 +44,10 @@ exports.default = function () {
     case _ActionTypes2.default.USER_ACCESS_GET_CURRENT_USER_IN_PROGRESS:
       return state.set('getCurrentUserStatus', _Status2.default.IN_PROGRESS);
 
-    case _ActionTypes2.default.USER_ACCESS_SIGNUP_WITH_EMAIL_AND_PASSWORD_SUCCEEDED:
+    case _ActionTypes2.default.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_SUCCEEDED:
       return state.set('signUpStatus', _Status2.default.SUCCEEDED).set('userExists', true).set('userInfo', action.payload.get('userInfo'));
 
-    case _ActionTypes2.default.USER_ACCESS_SIGNUP_WITH_EMAIL_AND_PASSWORD_FAILED:
+    case _ActionTypes2.default.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_FAILED:
       return state.set('signUpStatus', _Status2.default.FAILED).set('userExists', false).remove('userInfo').update('failedOperations', function (failedOperations) {
         return failedOperations.push(action.payload);
       });
@@ -58,10 +58,10 @@ exports.default = function () {
     case _ActionTypes2.default.USER_ACCESS_SIGNUP_IN_PROGRESS:
       return state.set('signUpStatus', _Status2.default.IN_PROGRESS);
 
-    case _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_EMAIL_AND_PASSWORD_SUCCEEDED:
+    case _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_SUCCEEDED:
       return state.set('signInStatus', _Status2.default.SUCCEEDED).set('userExists', true).set('userInfo', action.payload.get('userInfo'));
 
-    case _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_EMAIL_AND_PASSWORD_FAILED:
+    case _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_FAILED:
       return state.set('signInStatus', _Status2.default.FAILED).set('userExists', false).remove('userInfo').update('failedOperations', function (failedOperations) {
         return failedOperations.push(action.payload);
       });
