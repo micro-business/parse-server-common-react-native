@@ -78,16 +78,20 @@ export default class UserService {
   static getCurrentUserInfo = () =>
     new Promise((resolve, reject) => {
       ParseWrapperService.getCurrentUserAsync()
-        .then(user =>
-          resolve(
-            Map({
-              id: user.id,
-              username: user.getUsername(),
-              emailAddress: user.getEmail(),
-              emailAddressVerified: user.get('emailVerified'),
-            }),
-          ),
-        )
+        .then((user) => {
+          if (user) {
+            resolve(
+              Map({
+                id: user.id,
+                username: user.getUsername(),
+                emailAddress: user.getEmail(),
+                emailAddressVerified: user.get('emailVerified'),
+              }),
+            );
+          } else {
+            resolve(undefined);
+          }
+        })
         .catch(error => reject(error));
     });
 
