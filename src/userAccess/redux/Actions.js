@@ -4,44 +4,56 @@ import { Map } from 'immutable';
 import uuid from 'uuid/v4';
 import ActionTypes from './ActionTypes';
 
-export default class Actions {
-  static acknowledgeFailedOperation = payload => ({
+export function acknowledgeFailedOperation(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_ACKNOWLEDGE_FAILED_OPERATION,
     payload,
-  });
+  };
+}
 
-  static getCurrentUser = () => ({
+export function getCurrentUser() {
+  return {
     type: ActionTypes.USER_ACCESS_GET_CURRENT_USER,
     payload: Map({
       operationId: uuid(),
     }),
-  });
+  };
+}
 
-  static getCurrentUserSucceeded = payload => ({
+export function getCurrentUserSucceeded(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_GET_CURRENT_USER_SUCCEEDED,
     payload,
-  });
+  };
+}
 
-  static getCurrentUserFailed = payload => ({
+export function getCurrentUserFailed(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_GET_CURRENT_USER_FAILED,
     payload,
-  });
+  };
+}
 
-  static resetGetCurrentUserStatus = payload => ({
+export function resetGetCurrentUserStatus(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_RESET_GET_CURRENT_USER_STATUS,
     payload,
-  });
+  };
+}
 
-  static getCurrentUserInProgress = payload => ({
+export function getCurrentUserInProgress(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_GET_CURRENT_USER_IN_PROGRESS,
     payload,
-  });
+  };
+}
 
-  static signUpWithUsernameAndPassword = (
-    username: string,
-    password: string,
-    emailAddress: ?string,
-  ) => ({
+export function signUpWithUsernameAndPassword(
+  username: string,
+  password: string,
+  emailAddress: ?string,
+) {
+  return {
     type: ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD,
     payload: Map({
       operationId: uuid(),
@@ -49,33 +61,43 @@ export default class Actions {
       password,
       emailAddress,
     }),
-  });
+  };
+}
 
-  static signUpWithUsernameAndPasswordSucceeded = payload => ({
+export function signUpWithUsernameAndPasswordSucceeded(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_SUCCEEDED,
     payload,
-  });
+  };
+}
 
-  static signUpWithUsernameAndPasswordFailed = payload => ({
+export function signUpWithUsernameAndPasswordFailed(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_FAILED,
     payload,
-  });
+  };
+}
 
-  static resetSignUpStatus = payload => ({
+export function resetSignUpStatus(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_RESET_SIGNUP_STATUS,
     payload,
-  });
+  };
+}
 
-  static signUpInProgress = payload => ({
+export function signUpInProgress(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_SIGNUP_IN_PROGRESS,
     payload,
-  });
+  };
+}
 
-  static signInWithUsernameAndPassword = (
-    username: string,
-    password: string,
-    emailAddress: ?string,
-  ) => ({
+export function signInWithUsernameAndPassword(
+  username: string,
+  password: string,
+  emailAddress: ?string,
+) {
+  return {
     type: ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD,
     payload: Map({
       operationId: uuid(),
@@ -83,25 +105,33 @@ export default class Actions {
       password,
       emailAddress,
     }),
-  });
+  };
+}
 
-  static signInWithUsernameAndPasswordSucceeded = payload => ({
+export function signInWithUsernameAndPasswordSucceeded(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_SUCCEEDED,
     payload,
-  });
+  };
+}
 
-  static signInWithUsernameAndPasswordFailed = payload => ({
+export function signInWithUsernameAndPasswordFailed(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_FAILED,
     payload,
-  });
+  };
+}
 
-  static resetSignInStatus = payload => ({
+export function resetSignInStatus(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_RESET_SIGNIN_STATUS,
     payload,
-  });
+  };
+}
 
-  static signInInProgress = payload => ({
+export function signInInProgress(payload) {
+  return {
     type: ActionTypes.USER_ACCESS_SIGNIN_IN_PROGRESS,
     payload,
-  });
+  };
 }
