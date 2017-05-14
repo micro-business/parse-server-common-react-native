@@ -2,7 +2,6 @@
 
 export {
   ActionTypes,
-  UserAccessActions,
   UserAccessReducer,
   Status,
 } from './redux';

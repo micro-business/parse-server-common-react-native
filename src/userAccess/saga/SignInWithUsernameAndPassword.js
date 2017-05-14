@@ -3,7 +3,8 @@
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { UserService } from '../../services';
 import Common from './Common';
-import { UserAccessActions, ActionTypes } from '../redux';
+import { ActionTypes } from '../redux';
+import * as UserAccessActions from '../redux/Actions';
 
 function* signInWithUsernameAndPasswordAsync(action) {
   try {
