@@ -4,7 +4,7 @@ var _immutable=require('immutable');
 var _ParseWrapperService=require('./ParseWrapperService');var _ParseWrapperService2=_interopRequireDefault(_ParseWrapperService);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function _classCallCheck(instance,Constructor){if(!(instance instanceof Constructor)){throw new TypeError("Cannot call a class as a function");}}var
 
 UserService=function UserService(){_classCallCheck(this,UserService);};UserService.
-signUpWithEmailAndPassword=function(
+signUpWithUsernameAndPassword=function(
 username,
 password,
 emailAddress){return(
@@ -34,7 +34,7 @@ emailAddressVerified:result.get('emailVerified')})));}).
 catch(function(error){return reject(error);});
 }));};UserService.
 
-signInWithEmailAndPassword=function(username,password){return(
+signInWithUsernameAndPassword=function(username,password){return(
 new Promise(function(resolve,reject){
 _ParseWrapperService2.default.logIn(username,password).
 then(function(result){return(
