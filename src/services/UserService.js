@@ -4,11 +4,7 @@ import { Map } from 'immutable';
 import ParseWrapperService from './ParseWrapperService';
 
 export default class UserService {
-  static signUpWithUsernameAndPassword = (
-    username: string,
-    password: string,
-    emailAddress: ?string,
-  ) =>
+  static signUpWithUsernameAndPassword = (username: string, password: string, emailAddress: ?string) =>
     new Promise((resolve, reject) => {
       const user = ParseWrapperService.createNewUser();
 
@@ -62,9 +58,7 @@ export default class UserService {
   };
 
   static resetPassword = (emailAddress: string) => {
-    ParseWrapperService.getCurrentUserAsync().then(user =>
-      user.requestPasswordReset(emailAddress),
-    );
+    ParseWrapperService.getCurrentUserAsync().then(user => user.requestPasswordReset(emailAddress));
   };
 
   static updatePassword = (newPassword: string) => {
