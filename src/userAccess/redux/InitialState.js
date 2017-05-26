@@ -9,4 +9,5 @@ export default Map({
   getCurrentUserStatus: Status.NOT_STARTED,
   signUpStatus: Status.NOT_STARTED,
   signInStatus: Status.NOT_STARTED,
+  signOutStatus: Status.NOT_STARTED,
 });

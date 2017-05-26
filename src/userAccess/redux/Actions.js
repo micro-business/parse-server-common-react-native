@@ -48,11 +48,7 @@ export function getCurrentUserInProgress(payload) {
   };
 }
 
-export function signUpWithUsernameAndPassword(
-  username: string,
-  password: string,
-  emailAddress: ?string,
-) {
+export function signUpWithUsernameAndPassword(username: string, password: string, emailAddress: ?string) {
   return {
     type: ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD,
     payload: Map({
@@ -92,11 +88,7 @@ export function signUpInProgress(payload) {
   };
 }
 
-export function signInWithUsernameAndPassword(
-  username: string,
-  password: string,
-  emailAddress: ?string,
-) {
+export function signInWithUsernameAndPassword(username: string, password: string, emailAddress: ?string) {
   return {
     type: ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD,
     payload: Map({
@@ -132,6 +124,43 @@ export function resetSignInStatus(payload) {
 export function signInInProgress(payload) {
   return {
     type: ActionTypes.USER_ACCESS_SIGNIN_IN_PROGRESS,
+    payload,
+  };
+}
+
+export function signOut() {
+  return {
+    type: ActionTypes.USER_ACCESS_SIGNOUT,
+    payload: Map({
+      operationId: uuid(),
+    }),
+  };
+}
+
+export function signOutSucceeded(payload) {
+  return {
+    type: ActionTypes.USER_ACCESS_SIGNOUT_SUCCEEDED,
+    payload,
+  };
+}
+
+export function signOutFailed(payload) {
+  return {
+    type: ActionTypes.USER_ACCESS_SIGNOUT_FAILED,
+    payload,
+  };
+}
+
+export function resetSignOutStatus(payload) {
+  return {
+    type: ActionTypes.USER_ACCESS_RESET_SIGNOUT_STATUS,
+    payload,
+  };
+}
+
+export function signOutInProgress(payload) {
+  return {
+    type: ActionTypes.USER_ACCESS_SIGNOUT_IN_PROGRESS,
     payload,
   };
 }
