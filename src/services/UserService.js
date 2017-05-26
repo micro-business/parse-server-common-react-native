@@ -2,88 +2,118 @@
 
 import { Map } from 'immutable';
 import ParseWrapperService from './ParseWrapperService';
-import Exception from './Exception';
 
 export default class UserService {
-  static signUpWithUsernameAndPassword = async (username: string, password: string, emailAddress: ?string) => {
-    const user = ParseWrapperService.createNewUser();
+  static signUpWithUsernameAndPassword = (
+    username: string,
+    password: string,
+    emailAddress: ?string,
+  ) =>
+    new Promise((resolve, reject) => {
+      const user = ParseWrapperService.createNewUser();
 
-    user.setUsername(username);
-    user.setPassword(password);
+      user.setUsername(username);
+      user.setPassword(password);
 
-    if (emailAddress) {
-      user.setEmail(emailAddress);
-    }
+      if (emailAddress) {
+        user.setEmail(emailAddress);
+      }
 
-    const result = await user.signUp();
-
-    return Map({
-      id: result.id,
-      username: result.getUsername(),
-      emailAddress: result.getEmail(),
-      emailAddressVerified: result.get('emailVerified'),
+      user
+        .signUp()
+        .then(result =>
+          resolve(
+            Map({
+              id: result.id,
+              username: result.getUsername(),
+              emailAddress: result.getEmail(),
+              emailAddressVerified: result.get('emailVerified'),
+            }),
+          ),
+        )
+        .catch(error => reject(error));
     });
-  };
 
-  static signInWithUsernameAndPassword = async (username: string, password: string) => {
-    const result = await ParseWrapperService.logIn(username, password);
-
-    return Map({
-      id: result.id,
-      username: result.getUsername(),
-      emailAddress: result.getEmail(),
-      emailAddressVerified: result.get('emailVerified'),
+  static signInWithUsernameAndPassword = (username: string, password: string) =>
+    new Promise((resolve, reject) => {
+      ParseWrapperService.logIn(username, password)
+        .then(result =>
+          resolve(
+            Map({
+              id: result.id,
+              username: result.getUsername(),
+              emailAddress: result.getEmail(),
+              emailAddressVerified: result.get('emailVerified'),
+            }),
+          ),
+        )
+        .catch(error => reject(error));
     });
-  };
 
   static signOut = () => ParseWrapperService.logOut();
 
-  static sendEmailVerification = async () => {
-    const user = await ParseWrapperService.getCurrentUserAsync();
+  static sendEmailVerification = () => {
+    ParseWrapperService.getCurrentUserAsync().then((user) => {
+      // Re-saving the email address triggers the logic in parse server back-end to re-send the verification email
+      user.setEmail(user.getEmail());
 
-    // Re-saving the email address triggers the logic in parse server back-end to re-send the verification email
-    user.setEmail(user.getEmail());
-
-    return user.save();
-  };
-
-  static resetPassword = async (emailAddress: string) => {
-    const user = await ParseWrapperService.getCurrentUserAsync();
-
-    return user.requestPasswordReset(emailAddress);
-  };
-
-  static updatePassword = async (newPassword: string) => {
-    const user = await ParseWrapperService.getCurrentUserAsync();
-
-    user.setPassword(newPassword);
-
-    return user.save();
-  };
-
-  static getCurrentUserInfo = async () => {
-    const user = await ParseWrapperService.getCurrentUserAsync();
-
-    return Map({
-      id: user.id,
-      username: user.getUsername(),
-      emailAddress: user.getEmail(),
-      emailAddressVerified: user.get('emailVerified'),
+      return user.save();
     });
   };
 
-  static getUserInfo = async (username: string) => {
-    const results = await ParseWrapperService.createUserQuery().equalTo('username', username).find();
-
-    if (results.length === 0) {
-      throw new Exception(`No user found with username: ${username}`);
-    } else if (results.length > 1) {
-      throw new Exception(`Multiple user found with username: ${username}`);
-    } else {
-      return Map({
-        id: results[0].id,
-        username: results[0].getUsername(),
-      });
-    }
+  static resetPassword = (emailAddress: string) => {
+    ParseWrapperService.getCurrentUserAsync().then(user =>
+      user.requestPasswordReset(emailAddress),
+    );
   };
+
+  static updatePassword = (newPassword: string) => {
+    ParseWrapperService.getCurrentUserAsync().then((user) => {
+      user.setPassword(newPassword);
+
+      return user.save();
+    });
+  };
+
+  static getCurrentUserInfo = () =>
+    new Promise((resolve, reject) => {
+      ParseWrapperService.getCurrentUserAsync()
+        .then((user) => {
+          if (user) {
+            resolve(
+              Map({
+                id: user.id,
+                username: user.getUsername(),
+                emailAddress: user.getEmail(),
+                emailAddressVerified: user.get('emailVerified'),
+              }),
+            );
+          } else {
+            resolve(undefined);
+          }
+        })
+        .catch(error => reject(error));
+    });
+
+  static getUserInfo = (username: string) =>
+    new Promise((resolve, reject) => {
+      ParseWrapperService.createUserQuery()
+        .equalTo('username', username)
+        .find()
+        .then((results) => {
+          if (results.length === 0) {
+            reject(`No user found with username: ${username}`);
+          } else if (results.length > 1) {
+            reject(`Multiple user found with username: ${username}`);
+          } else {
+            resolve(
+              Map({
+                id: results[0].id,
+                username: results[0].getUsername(),
+              }),
+            );
+          }
+        })
+        .catch(error => reject(error));
+    });
 }
