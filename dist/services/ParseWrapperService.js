@@ -130,16 +130,16 @@ push(query));
 return query;
 };ParseWrapperService.
 
-createOrQuery=function(queries){return(
-_reactNative2.default.Query.or.apply(_this,queries.toArray()));};ParseWrapperService.
+createOrQuery=function(queries){return _reactNative2.default.Query.or.apply(_this,queries.toArray());};ParseWrapperService.
 createUserQuery=function(){return new _reactNative2.default.Query(_reactNative2.default.User);};ParseWrapperService.
 getConfig=function(){return _reactNative2.default.Config.get();};ParseWrapperService.
 getCachedConfig=function(){return _reactNative2.default.Config.current();};ParseWrapperService.
 getCurrentUser=function(){return _reactNative2.default.User.current();};ParseWrapperService.
 getCurrentUserAsync=function(){return _reactNative2.default.User.currentAsync();};ParseWrapperService.
 createNewUser=function(){return new _reactNative2.default.User();};ParseWrapperService.
-createUserWithoutData=function(userId){return(
-_reactNative2.default.User.createWithoutData(userId));};ParseWrapperService.
-logIn=function(username,password){return(
-_reactNative2.default.User.logIn(username,password));};ParseWrapperService.
-logOut=function(){return _reactNative2.default.User.logOut();};exports.default=ParseWrapperService;
+createUserWithoutData=function(userId){return _reactNative2.default.User.createWithoutData(userId);};ParseWrapperService.
+logIn=function(username,password){return _reactNative2.default.User.logIn(username,password);};ParseWrapperService.
+logOut=function(){return(
+new Promise(function(resolve,reject){
+_reactNative2.default.User.logOut().then(function(){return resolve();}).catch(function(error){return reject(error);});
+}));};exports.default=ParseWrapperService;

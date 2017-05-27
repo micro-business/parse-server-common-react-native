@@ -130,17 +130,17 @@ export default class ParseWrapperService {
     return query;
   };
 
-  static createOrQuery = queries =>
-    Parse.Query.or.apply(this, queries.toArray());
+  static createOrQuery = queries => Parse.Query.or.apply(this, queries.toArray());
   static createUserQuery = () => new Parse.Query(Parse.User);
   static getConfig = () => Parse.Config.get();
   static getCachedConfig = () => Parse.Config.current();
   static getCurrentUser = () => Parse.User.current();
   static getCurrentUserAsync = () => Parse.User.currentAsync();
   static createNewUser = () => new Parse.User();
-  static createUserWithoutData = (userId: string) =>
-    Parse.User.createWithoutData(userId);
-  static logIn = (username: string, password: string) =>
-    Parse.User.logIn(username, password);
-  static logOut = () => Parse.User.logOut();
+  static createUserWithoutData = (userId: string) => Parse.User.createWithoutData(userId);
+  static logIn = (username: string, password: string) => Parse.User.logIn(username, password);
+  static logOut = () =>
+    new Promise((resolve, reject) => {
+      Parse.User.logOut().then(() => resolve()).catch(error => reject(error));
+    });
 }
