@@ -90,14 +90,19 @@ export default class UserService {
       ParseWrapperService.getCurrentUserAsync()
         .then((user) => {
           if (user) {
-            resolve(
-              Map({
-                id: user.id,
-                username: user.getUsername(),
-                emailAddress: user.getEmail(),
-                emailAddressVerified: user.get('emailVerified'),
-              }),
-            );
+            const authData = user.get('authData');
+
+            if (authData && authData.facebook) {
+            } else {
+              resolve(
+                Map({
+                  id: user.id,
+                  username: user.getUsername(),
+                  emailAddress: user.getEmail(),
+                  emailAddressVerified: user.get('emailVerified'),
+                }),
+              );
+            }
           } else {
             resolve(undefined);
           }
