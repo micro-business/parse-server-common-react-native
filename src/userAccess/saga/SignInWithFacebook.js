@@ -10,7 +10,7 @@ function* signInWithFacebookAsync(action) {
   try {
     yield put(UserAccessActions.signInInProgress(Common.createOperationIdMap(action)));
 
-    const userInfo = yield call(UserService.signInWithFacebook, action.payload.get('username'), action.payload.get('password'));
+    const userInfo = yield call(UserService.signInWithFacebook, action.payload.get('scope'));
 
     if (userInfo) {
       yield put(UserAccessActions.signInWithFacebookSucceeded(Common.createUserInfoMap(action, userInfo)));

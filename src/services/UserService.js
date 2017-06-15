@@ -46,6 +46,22 @@ export default class UserService {
         .catch(error => reject(error));
     });
 
+  static signInWithFacebook = (scope: string) =>
+    new Promise((resolve, reject) => {
+      ParseWrapperService.logInWithFacebook(scope)
+        .then(result =>
+          resolve(
+            Map({
+              id: result.id,
+              username: result.getUsername(),
+              emailAddress: result.getEmail(),
+              emailAddressVerified: result.get('emailVerified'),
+            }),
+          ),
+        )
+        .catch(error => reject(error));
+    });
+
   static signOut = () => ParseWrapperService.logOut();
 
   static sendEmailVerification = () => {

@@ -46,6 +46,22 @@ emailAddressVerified:result.get('emailVerified')})));}).
 catch(function(error){return reject(error);});
 }));};UserService.
 
+signInWithFacebook=function(scope){return(
+new Promise(function(resolve,reject){
+_ParseWrapperService2.default.logInWithFacebook(scope).
+then(function(result){return(
+resolve(
+(0,_immutable.Map)({
+id:result.id,
+username:result.getUsername(),
+emailAddress:result.getEmail(),
+emailAddressVerified:result.get('emailVerified')})));}).
+
+
+
+catch(function(error){return reject(error);});
+}));};UserService.
+
 signOut=function(){return _ParseWrapperService2.default.logOut();};UserService.
 
 sendEmailVerification=function(){

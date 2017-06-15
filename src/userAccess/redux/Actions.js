@@ -114,11 +114,12 @@ export function signInWithUsernameAndPasswordFailed(payload) {
   };
 }
 
-export function signInWithFacebook() {
+export function signInWithFacebook(scope: string) {
   return {
     type: ActionTypes.USER_ACCESS_SIGNIN_WITH_FACEBOOK,
     payload: Map({
       operationId: uuid(),
+      scope,
     }),
   };
 }

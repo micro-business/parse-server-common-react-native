@@ -139,6 +139,13 @@ getCurrentUserAsync=function(){return _reactNative2.default.User.currentAsync();
 createNewUser=function(){return new _reactNative2.default.User();};ParseWrapperService.
 createUserWithoutData=function(userId){return _reactNative2.default.User.createWithoutData(userId);};ParseWrapperService.
 logIn=function(username,password){return _reactNative2.default.User.logIn(username,password);};ParseWrapperService.
+logInWithFacebook=function(scope){return(
+new Promise(function(resolve,reject){
+_reactNative2.default.FacebookUtils.logIn(scope,{
+success:resolve,
+error:function error(user,_error){return reject(_error&&_error.error||_error);}});
+
+}));};ParseWrapperService.
 logOut=function(){return(
 new Promise(function(resolve,reject){
 _reactNative2.default.User.logOut().then(function(){return resolve();}).catch(function(error){return reject(error);});
