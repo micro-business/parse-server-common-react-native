@@ -56,6 +56,16 @@ set('userExists',false).
 remove('userInfo').
 update('failedOperations',function(failedOperations){return failedOperations.push(action.payload);});
 
+case _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_FACEBOOK_SUCCEEDED:
+return state.set('signInStatus',_Status2.default.SUCCEEDED).set('userExists',true).set('userInfo',action.payload.get('userInfo'));
+
+case _ActionTypes2.default.USER_ACCESS_SIGNIN_WITH_FACEBOOK_FAILED:
+return state.
+set('signInStatus',_Status2.default.FAILED).
+set('userExists',false).
+remove('userInfo').
+update('failedOperations',function(failedOperations){return failedOperations.push(action.payload);});
+
 case _ActionTypes2.default.USER_ACCESS_RESET_SIGNIN_STATUS:
 return state.set('signInStatus',_Status2.default.NOT_STARTED);
 

@@ -1,4 +1,5 @@
-Object.defineProperty(exports,"__esModule",{value:true});exports.watchSignOut=exports.watchSignInWithUsernameAndPassword=exports.watchSignUpWithUsernameAndPassword=exports.watchGetCurrentUser=exports.Status=exports.UserAccessReducer=exports.ActionTypes=exports.Exception=exports.UserService=exports.ParseWrapperService=exports.BaseObject=undefined;var _schema=require('./schema');Object.defineProperty(exports,'BaseObject',{enumerable:true,get:function get(){return _schema.
+Object.defineProperty(exports,"__esModule",{value:true});exports.configParseServerSdk=exports.watchSignOut=exports.watchSignInWithFacebook=exports.watchSignInWithUsernameAndPassword=exports.watchSignUpWithUsernameAndPassword=exports.watchGetCurrentUser=exports.Status=exports.UserAccessReducer=exports.ActionTypes=exports.Exception=exports.UserService=exports.ParseWrapperService=exports.BaseObject=undefined;var _schema=require('./schema');Object.defineProperty(exports,'BaseObject',{enumerable:true,get:function get(){return _schema.
+
 
 
 
@@ -10,11 +11,15 @@ UserAccessReducer;}});Object.defineProperty(exports,'Status',{enumerable:true,ge
 Status;}});Object.defineProperty(exports,'watchGetCurrentUser',{enumerable:true,get:function get(){return _userAccess.
 watchGetCurrentUser;}});Object.defineProperty(exports,'watchSignUpWithUsernameAndPassword',{enumerable:true,get:function get(){return _userAccess.
 watchSignUpWithUsernameAndPassword;}});Object.defineProperty(exports,'watchSignInWithUsernameAndPassword',{enumerable:true,get:function get(){return _userAccess.
-watchSignInWithUsernameAndPassword;}});Object.defineProperty(exports,'watchSignOut',{enumerable:true,get:function get(){return _userAccess.
-watchSignOut;}});exports.
+watchSignInWithUsernameAndPassword;}});Object.defineProperty(exports,'watchSignInWithFacebook',{enumerable:true,get:function get(){return _userAccess.
+watchSignInWithFacebook;}});Object.defineProperty(exports,'watchSignOut',{enumerable:true,get:function get(){return _userAccess.
+watchSignOut;}});var _reactNative=require('parse/react-native');var _reactNative2=_interopRequireDefault(_reactNative);var _facebook=require('./facebook');function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}
 
 
-configParseServerSdk=configParseServerSdk;var _reactNative=require('parse/react-native');var _reactNative2=_interopRequireDefault(_reactNative);function _interopRequireDefault(obj){return obj&&obj.__esModule?obj:{default:obj};}function configParseServerSdk(serverUrl,applicationId,javascriptKey){
+var configParseServerSdk=exports.configParseServerSdk=function configParseServerSdk(serverUrl,applicationId,javascriptKey){
 _reactNative2.default.initialize(applicationId,javascriptKey);
 _reactNative2.default.serverURL=serverUrl;
-}
+
+_facebook.FacebookSDK.init();
+_reactNative2.default.FacebookUtils.init();
+};

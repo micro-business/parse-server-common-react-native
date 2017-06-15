@@ -56,6 +56,16 @@ export default (state = initialState, action) => {
         .remove('userInfo')
         .update('failedOperations', failedOperations => failedOperations.push(action.payload));
 
+  case ActionTypes.USER_ACCESS_SIGNIN_WITH_FACEBOOK_SUCCEEDED:
+    return state.set('signInStatus', Status.SUCCEEDED).set('userExists', true).set('userInfo', action.payload.get('userInfo'));
+
+  case ActionTypes.USER_ACCESS_SIGNIN_WITH_FACEBOOK_FAILED:
+    return state
+        .set('signInStatus', Status.FAILED)
+        .set('userExists', false)
+        .remove('userInfo')
+        .update('failedOperations', failedOperations => failedOperations.push(action.payload));
+
   case ActionTypes.USER_ACCESS_RESET_SIGNIN_STATUS:
     return state.set('signInStatus', Status.NOT_STARTED);
 

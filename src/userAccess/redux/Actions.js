@@ -114,6 +114,29 @@ export function signInWithUsernameAndPasswordFailed(payload) {
   };
 }
 
+export function signInWithFacebook() {
+  return {
+    type: ActionTypes.USER_ACCESS_SIGNIN_WITH_FACEBOOK,
+    payload: Map({
+      operationId: uuid(),
+    }),
+  };
+}
+
+export function signInWithFacebookSucceeded(payload) {
+  return {
+    type: ActionTypes.USER_ACCESS_SIGNIN_WITH_FACEBOOK_SUCCEEDED,
+    payload,
+  };
+}
+
+export function signInWithFacebookFailed(payload) {
+  return {
+    type: ActionTypes.USER_ACCESS_SIGNIN_WITH_FACEBOOK_FAILED,
+    payload,
+  };
+}
+
 export function resetSignInStatus(payload) {
   return {
     type: ActionTypes.USER_ACCESS_RESET_SIGNIN_STATUS,
