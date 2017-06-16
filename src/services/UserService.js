@@ -38,14 +38,8 @@ export default class UserService {
   };
 
   static signInWithFacebook = async (scope: string) => {
-    const result = ParseWrapperService.logInWithFacebook(scope);
-
-    return Map({
-      id: result.id,
-      username: result.getUsername(),
-      emailAddress: result.getEmail(),
-      emailAddressVerified: result.get('emailVerified'),
-    });
+    await ParseWrapperService.logInWithFacebook(scope);
+    return UserService.getCurrentUserInfo();
   };
 
   static signOut = async () => ParseWrapperService.logOut();

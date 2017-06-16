@@ -1,6 +1,6 @@
 {
   "name": "micro-business-parse-server-common-react-native",
-  "version": "0.1.30",
+  "version": "0.1.31",
   "description": "Micro Business Parse Server Common React Native",
   "main": "./src/index.js",
   "scripts": {
