@@ -2,133 +2,124 @@
 
 import { Map } from 'immutable';
 import ParseWrapperService from './ParseWrapperService';
+import Exception from './Exception';
+import { FacebookSDK } from '../facebook';
 
 export default class UserService {
-  static signUpWithUsernameAndPassword = (username: string, password: string, emailAddress: ?string) =>
+  static signUpWithUsernameAndPassword = async (username: string, password: string, emailAddress: ?string) => {
+    const user = ParseWrapperService.createNewUser();
+
+    user.setUsername(username);
+    user.setPassword(password);
+
+    if (emailAddress) {
+      user.setEmail(emailAddress);
+    }
+
+    const result = await user.signUp();
+
+    return Map({
+      id: result.id,
+      username: result.getUsername(),
+      emailAddress: result.getEmail(),
+      emailAddressVerified: result.get('emailVerified'),
+    });
+  };
+
+  static signInWithUsernameAndPassword = async (username: string, password: string) => {
+    const result = await ParseWrapperService.logIn(username, password);
+
+    return Map({
+      id: result.id,
+      username: result.getUsername(),
+      emailAddress: result.getEmail(),
+      emailAddressVerified: result.get('emailVerified'),
+    });
+  };
+
+  static signInWithFacebook = async (scope: string) => {
+    const result = ParseWrapperService.logInWithFacebook(scope);
+
+    return Map({
+      id: result.id,
+      username: result.getUsername(),
+      emailAddress: result.getEmail(),
+      emailAddressVerified: result.get('emailVerified'),
+    });
+  };
+
+  static signOut = async () => ParseWrapperService.logOut();
+
+  static sendEmailVerification = async () => {
+    const user = await ParseWrapperService.getCurrentUserAsync();
+    // Re-saving the email address triggers the logic in parse server back-end to re-send the verification email
+    user.setEmail(user.getEmail());
+
+    await user.save();
+  };
+
+  static resetPassword = async (emailAddress: string) => {
+    const user = await ParseWrapperService.getCurrentUserAsync();
+
+    await user.requestPasswordReset(emailAddress);
+  };
+
+  static updatePassword = async (newPassword: string) => {
+    const user = await ParseWrapperService.getCurrentUserAsync();
+
+    user.setPassword(newPassword);
+
+    await user.save();
+  };
+
+  static queryFacebookAPI = (path, ...args): Promise =>
     new Promise((resolve, reject) => {
-      const user = ParseWrapperService.createNewUser();
+      FacebookSDK.api(path, ...args, (response) => {
+        if (response && !response.error) {
+          resolve(response);
+        } else {
+          reject(response && response.error);
+        }
+      });
+    });
 
-      user.setUsername(username);
-      user.setPassword(password);
+  static getCurrentUserInfo = async () => {
+    const user = await ParseWrapperService.getCurrentUserAsync();
 
-      if (emailAddress) {
-        user.setEmail(emailAddress);
+    if (user) {
+      const authData = user.get('authData');
+
+      if (authData && authData.facebook) {
+        const profile = await UserService.queryFacebookAPI('/me', { fields: 'name,email' });
+        return Map({
+          id: user.id,
+          username: user.getUsername(),
+          emailAddress: profile.email,
+          emailAddressVerified: true,
+        });
       }
-
-      user
-        .signUp()
-        .then(result =>
-          resolve(
-            Map({
-              id: result.id,
-              username: result.getUsername(),
-              emailAddress: result.getEmail(),
-              emailAddressVerified: result.get('emailVerified'),
-            }),
-          ),
-        )
-        .catch(error => reject(error));
-    });
-
-  static signInWithUsernameAndPassword = (username: string, password: string) =>
-    new Promise((resolve, reject) => {
-      ParseWrapperService.logIn(username, password)
-        .then(result =>
-          resolve(
-            Map({
-              id: result.id,
-              username: result.getUsername(),
-              emailAddress: result.getEmail(),
-              emailAddressVerified: result.get('emailVerified'),
-            }),
-          ),
-        )
-        .catch(error => reject(error));
-    });
-
-  static signInWithFacebook = (scope: string) =>
-    new Promise((resolve, reject) => {
-      ParseWrapperService.logInWithFacebook(scope)
-        .then(result =>
-          resolve(
-            Map({
-              id: result.id,
-              username: result.getUsername(),
-              emailAddress: result.getEmail(),
-              emailAddressVerified: result.get('emailVerified'),
-            }),
-          ),
-        )
-        .catch(error => reject(error));
-    });
-
-  static signOut = () => ParseWrapperService.logOut();
-
-  static sendEmailVerification = () => {
-    ParseWrapperService.getCurrentUserAsync().then((user) => {
-      // Re-saving the email address triggers the logic in parse server back-end to re-send the verification email
-      user.setEmail(user.getEmail());
-
-      return user.save();
-    });
+      return Map({
+        id: user.id,
+        username: user.getUsername(),
+        emailAddress: user.getEmail(),
+        emailAddressVerified: user.get('emailVerified'),
+      });
+    }
+    return undefined;
   };
 
-  static resetPassword = (emailAddress: string) => {
-    ParseWrapperService.getCurrentUserAsync().then(user => user.requestPasswordReset(emailAddress));
+  static getUserInfo = async (username: string) => {
+    const results = await ParseWrapperService.createUserQuery().equalTo('username', username).find();
+
+    if (results.length === 0) {
+      throw new Exception(`No user found with username: ${username}`);
+    } else if (results.length > 1) {
+      throw new Exception(`Multiple user found with username: ${username}`);
+    } else {
+      return Map({
+        id: results[0].id,
+        username: results[0].getUsername(),
+      });
+    }
   };
-
-  static updatePassword = (newPassword: string) => {
-    ParseWrapperService.getCurrentUserAsync().then((user) => {
-      user.setPassword(newPassword);
-
-      return user.save();
-    });
-  };
-
-  static getCurrentUserInfo = () =>
-    new Promise((resolve, reject) => {
-      ParseWrapperService.getCurrentUserAsync()
-        .then((user) => {
-          if (user) {
-            const authData = user.get('authData');
-
-            if (authData && authData.facebook) {
-            } else {
-              resolve(
-                Map({
-                  id: user.id,
-                  username: user.getUsername(),
-                  emailAddress: user.getEmail(),
-                  emailAddressVerified: user.get('emailVerified'),
-                }),
-              );
-            }
-          } else {
-            resolve(undefined);
-          }
-        })
-        .catch(error => reject(error));
-    });
-
-  static getUserInfo = (username: string) =>
-    new Promise((resolve, reject) => {
-      ParseWrapperService.createUserQuery()
-        .equalTo('username', username)
-        .find()
-        .then((results) => {
-          if (results.length === 0) {
-            reject(`No user found with username: ${username}`);
-          } else if (results.length > 1) {
-            reject(`Multiple user found with username: ${username}`);
-          } else {
-            resolve(
-              Map({
-                id: results[0].id,
-                username: results[0].getUsername(),
-              }),
-            );
-          }
-        })
-        .catch(error => reject(error));
-    });
 }
