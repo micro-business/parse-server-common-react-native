@@ -43,7 +43,7 @@ export default class UserService {
     const user = await ParseWrapperService.getCurrentUserAsync();
 
     user.setEmail(userInfo.get('emailAddress'));
-    user.set('emailAddress', userInfo.get('emailVerified'));
+    user.set('emailVerified', userInfo.get('emailVerified'));
 
     await user.save();
 
