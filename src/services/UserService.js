@@ -39,7 +39,15 @@ export default class UserService {
 
   static signInWithFacebook = async (scope: string) => {
     await ParseWrapperService.logInWithFacebook(scope);
-    return UserService.getCurrentUserInfo();
+    const userInfo = await UserService.getCurrentUserInfo();
+    const user = await ParseWrapperService.getCurrentUserAsync();
+
+    user.setEmail(userInfo.get('emailAddress'));
+    user.set('emailAddress', userInfo.get('emailVerified'));
+
+    await user.save();
+
+    return userInfo;
   };
 
   static signOut = async () => ParseWrapperService.logOut();
@@ -85,6 +93,7 @@ export default class UserService {
 
       if (authData && authData.facebook) {
         const profile = await UserService.queryFacebookAPI('/me', { fields: 'name,email' });
+
         return Map({
           id: user.id,
           username: user.getUsername(),
