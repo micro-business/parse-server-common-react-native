@@ -39,15 +39,8 @@ export default class UserService {
 
   static signInWithFacebook = async (scope: string) => {
     await ParseWrapperService.logInWithFacebook(scope);
-    const userInfo = await UserService.getCurrentUserInfo();
-    const user = await ParseWrapperService.getCurrentUserAsync();
 
-    user.setEmail(userInfo.get('emailAddress'));
-    user.set('emailVerified', userInfo.get('emailVerified'));
-
-    await user.save();
-
-    return userInfo;
+    return UserService.getCurrentUserInfo();
   };
 
   static signOut = async () => ParseWrapperService.logOut();
