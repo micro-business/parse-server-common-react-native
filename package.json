@@ -1,6 +1,6 @@
 {
   "name": "micro-business-parse-server-common-react-native",
-  "version": "0.1.39",
+  "version": "0.1.40",
   "description": "Micro Business Parse Server Common React Native",
   "main": "./src/index.js",
   "scripts": {
@@ -20,9 +20,9 @@
     "fbjs": "^0.8.12",
     "immutable": "^3.8.1",
     "parse": "git+https://github.com/allmaxgit/Parse-SDK-JS.git",
-    "react-native-fbsdk": "^0.6.0",
+    "react-native-fbsdk": "^0.6.1",
     "redux-saga": "^0.15.3",
-    "uuid": "^3.0.1"
+    "uuid": "^3.1.0"
   },
   "devDependencies": {
     "babel-cli": "^6.24.1",
@@ -37,9 +37,9 @@
     "eslint-plugin-react": "^7.1.0",
     "flow-bin": "^0.48.0",
     "jest": "^20.0.4",
-    "lint-staged": "^3.6.1",
+    "lint-staged": "^4.0.0",
     "prettier": "^1.4.4",
-    "uuid": "^3.0.1"
+    "uuid": "^3.1.0"
   },
   "jest": {
     "rootDir": "./src"
