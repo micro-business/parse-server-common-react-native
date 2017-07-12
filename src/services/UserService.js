@@ -91,11 +91,15 @@ export default class UserService {
       const authData = user.get('authData');
 
       if (authData && authData.facebook) {
-        const profile = await UserService.queryFacebookAPI('/me', { fields: 'name,email' });
+        const profile = await UserService.queryFacebookAPI('/me', {
+          fields: 'name,email,picture',
+        });
 
         return Map({
           id: user.id,
           username: user.getUsername(),
+          name: profile.name,
+          avatar: profile.picture,
           emailAddress: profile.email,
           emailAddressVerified: true,
         });
