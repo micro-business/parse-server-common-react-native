@@ -21,6 +21,8 @@ function* signInWithFacebookAsync(action) {
   }
 }
 
-export default function* watchSignInWithFacebook() {
+const watcher = function* watchSignInWithFacebook() {
   yield takeLatest(ActionTypes.USER_ACCESS_SIGNIN_WITH_FACEBOOK, signInWithFacebookAsync);
-}
+};
+
+export default watcher;

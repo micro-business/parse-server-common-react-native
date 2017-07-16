@@ -16,6 +16,8 @@ function* signOutAsync(action) {
   }
 }
 
-export default function* watchSignOut() {
+const watcher = function* watchSignOut() {
   yield takeLatest(ActionTypes.USER_ACCESS_SIGNOUT, signOutAsync);
-}
+};
+
+export default watcher;

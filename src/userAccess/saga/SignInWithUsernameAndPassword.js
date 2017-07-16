@@ -8,41 +8,22 @@ import * as UserAccessActions from '../redux/Actions';
 
 function* signInWithUsernameAndPasswordAsync(action) {
   try {
-    yield put(
-      UserAccessActions.signInInProgress(Common.createOperationIdMap(action)),
-    );
+    yield put(UserAccessActions.signInInProgress(Common.createOperationIdMap(action)));
 
-    const userInfo = yield call(
-      UserService.signInWithUsernameAndPassword,
-      action.payload.get('username'),
-      action.payload.get('password'),
-    );
+    const userInfo = yield call(UserService.signInWithUsernameAndPassword, action.payload.get('username'), action.payload.get('password'));
 
     if (userInfo) {
-      yield put(
-        UserAccessActions.signInWithUsernameAndPasswordSucceeded(
-          Common.createUserInfoMap(action, userInfo),
-        ),
-      );
+      yield put(UserAccessActions.signInWithUsernameAndPasswordSucceeded(Common.createUserInfoMap(action, userInfo)));
     } else {
-      yield put(
-        UserAccessActions.signInWithUsernameAndPasswordSucceeded(
-          Common.createEmptyUserInfoMap(action),
-        ),
-      );
+      yield put(UserAccessActions.signInWithUsernameAndPasswordSucceeded(Common.createEmptyUserInfoMap(action)));
     }
   } catch (exception) {
-    yield put(
-      UserAccessActions.signInWithUsernameAndPasswordFailed(
-        Common.createErrorMap(action, exception.message),
-      ),
-    );
+    yield put(UserAccessActions.signInWithUsernameAndPasswordFailed(Common.createErrorMap(action, exception.message)));
   }
 }
 
-export default function* watchSignInWithUsernameAndPassword() {
-  yield takeLatest(
-    ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD,
-    signInWithUsernameAndPasswordAsync,
-  );
-}
+const watcher = function* watchSignInWithUsernameAndPassword() {
+  yield takeLatest(ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD, signInWithUsernameAndPasswordAsync);
+};
+
+export default watcher;
