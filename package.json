@@ -1,6 +1,6 @@
 {
   "name": "micro-business-parse-server-common-react-native",
-  "version": "1.0.0-alpha.2",
+  "version": "1.0.0-alpha.3",
   "description": "Micro Business Parse Server Common React Native",
   "main": "./src/index.js",
   "scripts": {
@@ -18,7 +18,7 @@
   "homepage": "https://bitbucket.org/microbusiness/micro-business-parse-server-common-react-native#readme",
   "dependencies": {
     "fbjs": "^0.8.16",
-    "immutable": "^3.8.1",
+    "immutable": "^4.0.0-rc.4",
     "parse": "^1.10.0",
     "react-native-fbsdk": "^0.6.1",
     "redux-saga": "^0.15.6",
@@ -38,7 +38,7 @@
     "flow-bin": "^0.56.0",
     "jest": "^21.2.1",
     "lint-staged": "^4.2.3",
-    "prettier": "^1.7.2",
+    "prettier": "^1.7.4",
     "uuid": "^3.1.0"
   },
   "jest": {
