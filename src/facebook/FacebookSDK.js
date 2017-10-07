@@ -26,7 +26,9 @@
  * @providesModule FacebookSDK
  */
 
-const { LoginManager, AccessToken, GraphRequest, GraphRequestManager } = require('react-native-fbsdk');
+const {
+  LoginManager, AccessToken, GraphRequest, GraphRequestManager,
+} = require('react-native-fbsdk');
 
 const emptyFunction = () => {};
 const mapObject = require('fbjs/lib/mapObject');

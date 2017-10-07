@@ -1,10 +1,10 @@
 // @flow
 
 import { call, put, takeLatest } from 'redux-saga/effects';
-import { UserService } from '../../services';
+import { UserService } from '../services';
 import Common from './Common';
-import { ActionTypes } from '../redux';
-import * as UserAccessActions from '../redux/Actions';
+import ActionTypes from './ActionTypes';
+import * as UserAccessActions from './Actions';
 
 function* signInWithFacebookAsync(action) {
   try {

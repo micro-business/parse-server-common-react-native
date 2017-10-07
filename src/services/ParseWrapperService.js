@@ -115,17 +115,15 @@ export default class ParseWrapperService {
       const objectIds = conditions.get('ids');
 
       if (objectIds && !objectIds.isEmpty()) {
-        return ParseWrapperService.createOrQuery(
-          objectIds
-            .map((objectId) => {
-              const objectIdQuery = new Parse.Query(object);
+        return ParseWrapperService.createOrQuery(objectIds
+          .map((objectId) => {
+            const objectIdQuery = new Parse.Query(object);
 
-              objectIdQuery.equalTo('objectId', objectId);
+            objectIdQuery.equalTo('objectId', objectId);
 
-              return objectIdQuery;
-            })
-            .push(query),
-        );
+            return objectIdQuery;
+          })
+          .push(query));
       }
     }
 
@@ -152,6 +150,9 @@ export default class ParseWrapperService {
     });
   static logOut = () =>
     new Promise((resolve, reject) => {
-      Parse.User.logOut().then(() => resolve()).catch(error => reject(error));
+      Parse.User
+        .logOut()
+        .then(() => resolve())
+        .catch(error => reject(error));
     });
 }

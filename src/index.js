@@ -8,7 +8,7 @@ export { ParseWrapperService, UserService, Exception } from './services';
 export {
   ActionTypes,
   UserAccessReducer,
-  Status,
+  Status as UserAccessStatus,
   watchGetCurrentUser,
   watchSignUpWithUsernameAndPassword,
   watchSignInWithUsernameAndPassword,

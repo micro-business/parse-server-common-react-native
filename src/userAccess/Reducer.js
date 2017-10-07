@@ -8,8 +8,7 @@ export default (state = initialState, action) => {
   switch (action.type) {
   case ActionTypes.USER_ACCESS_ACKNOWLEDGE_FAILED_OPERATION:
     return state.update('failedOperations', failedOperations =>
-      failedOperations.filterNot(operation => operation.get('operationId') === action.payload.get('operationId')),
-    );
+      failedOperations.filterNot(operation => operation.get('operationId') === action.payload.get('operationId')));
 
   case ActionTypes.USER_ACCESS_GET_CURRENT_USER_SUCCEEDED:
     return state
@@ -31,7 +30,10 @@ export default (state = initialState, action) => {
     return state.set('getCurrentUserStatus', Status.IN_PROGRESS);
 
   case ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_SUCCEEDED:
-    return state.set('signUpStatus', Status.SUCCEEDED).set('userExists', true).set('userInfo', action.payload.get('userInfo'));
+    return state
+      .set('signUpStatus', Status.SUCCEEDED)
+      .set('userExists', true)
+      .set('userInfo', action.payload.get('userInfo'));
 
   case ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD_FAILED:
     return state
@@ -47,7 +49,10 @@ export default (state = initialState, action) => {
     return state.set('signUpStatus', Status.IN_PROGRESS);
 
   case ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_SUCCEEDED:
-    return state.set('signInStatus', Status.SUCCEEDED).set('userExists', true).set('userInfo', action.payload.get('userInfo'));
+    return state
+      .set('signInStatus', Status.SUCCEEDED)
+      .set('userExists', true)
+      .set('userInfo', action.payload.get('userInfo'));
 
   case ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD_FAILED:
     return state
@@ -57,7 +62,10 @@ export default (state = initialState, action) => {
       .update('failedOperations', failedOperations => failedOperations.push(action.payload));
 
   case ActionTypes.USER_ACCESS_SIGNIN_WITH_FACEBOOK_SUCCEEDED:
-    return state.set('signInStatus', Status.SUCCEEDED).set('userExists', true).set('userInfo', action.payload.get('userInfo'));
+    return state
+      .set('signInStatus', Status.SUCCEEDED)
+      .set('userExists', true)
+      .set('userInfo', action.payload.get('userInfo'));
 
   case ActionTypes.USER_ACCESS_SIGNIN_WITH_FACEBOOK_FAILED:
     return state
@@ -73,7 +81,10 @@ export default (state = initialState, action) => {
     return state.set('signInStatus', Status.IN_PROGRESS);
 
   case ActionTypes.USER_ACCESS_SIGNOUT_SUCCEEDED:
-    return state.set('signOutStatus', Status.SUCCEEDED).set('userExists', false).remove('userInfo');
+    return state
+      .set('signOutStatus', Status.SUCCEEDED)
+      .set('userExists', false)
+      .remove('userInfo');
 
   case ActionTypes.USER_ACCESS_SIGNOUT_FAILED:
     return state.set('signOutStatus', Status.FAILED);

@@ -1,10 +1,10 @@
 // @flow
 
-export { ActionTypes, UserAccessReducer, Status } from './redux';
-export {
-  watchGetCurrentUser,
-  watchSignUpWithUsernameAndPassword,
-  watchSignInWithUsernameAndPassword,
-  watchSignInWithFacebook,
-  watchSignOut,
-} from './saga';
+export ActionTypes from './ActionTypes';
+export UserAccessReducer from './Reducer';
+export Status from './Status';
+export watchGetCurrentUser from './GetCurrentUser';
+export watchSignUpWithUsernameAndPassword from './SignUpWithUsernameAndPassword';
+export watchSignInWithUsernameAndPassword from './SignInWithUsernameAndPassword';
+export watchSignInWithFacebook from './SignInWithFacebook';
+export watchSignOut from './SignOut';
