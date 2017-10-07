@@ -6,7 +6,7 @@ import { FacebookSDK } from './facebook';
 export { BaseObject } from './schema';
 export { ParseWrapperService, UserService, Exception } from './services';
 export {
-  ActionTypes,
+  ActionTypes as UserAccessActionTypes,
   UserAccessReducer,
   Status as UserAccessStatus,
   watchGetCurrentUser,
