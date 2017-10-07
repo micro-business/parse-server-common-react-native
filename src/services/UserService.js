@@ -2,20 +2,11 @@
 
 import { Map } from 'immutable';
 import ParseWrapperService from './ParseWrapperService';
-import Exception from './Exception';
 import { FacebookSDK } from '../facebook';
 
 export default class UserService {
   static signUpWithUsernameAndPassword = async (username: string, password: string, emailAddress: ?string) => {
-    const user = ParseWrapperService.createNewUser();
-
-    user.setUsername(username);
-    user.setPassword(password);
-
-    if (emailAddress) {
-      user.setEmail(emailAddress);
-    }
-
+    const user = ParseWrapperService.createNewUser({ username, password, emailAddress });
     const result = await user.signUp();
 
     return Map({
@@ -49,20 +40,21 @@ export default class UserService {
     return userInfo;
   };
 
-  static signOut = async () => ParseWrapperService.logOut();
+  static signOut = () => ParseWrapperService.logOut();
 
   static sendEmailVerification = async () => {
     const user = await ParseWrapperService.getCurrentUserAsync();
+
     // Re-saving the email address triggers the logic in parse server back-end to re-send the verification email
     user.setEmail(user.getEmail());
 
-    await user.save();
+    return user.save();
   };
 
   static resetPassword = async (emailAddress: string) => {
     const user = await ParseWrapperService.getCurrentUserAsync();
 
-    await user.requestPasswordReset(emailAddress);
+    return user.requestPasswordReset(emailAddress);
   };
 
   static updatePassword = async (newPassword: string) => {
@@ -70,7 +62,7 @@ export default class UserService {
 
     user.setPassword(newPassword);
 
-    await user.save();
+    return user.save();
   };
 
   static queryFacebookAPI = (path, ...args): Promise =>
@@ -111,6 +103,7 @@ export default class UserService {
         emailAddressVerified: user.get('emailVerified'),
       });
     }
+
     return undefined;
   };
 
@@ -121,23 +114,39 @@ export default class UserService {
   };
 
   static getUserForProvidedSessionToken = async (sessionToken) => {
-    const result = await ParseWrapperService.createSessionQuery().equalTo('sessionToken', sessionToken).first();
+    const result = await ParseWrapperService.createSessionQuery()
+      .equalTo('sessionToken', sessionToken)
+      .first({ useMasterKey: true });
 
-    return result ? result.fetch() : null;
+    return result ? result.get('user') : null;
   };
 
-  static getUser = async (username: string) => {
-    const result = await ParseWrapperService.createUserQuery().equalTo('username', username).first();
+  static getUserById = async (id: string, sessionToken: ?string) => {
+    const result = await ParseWrapperService.createUserQuery()
+      .equalTo('objectId', id)
+      .first({ sessionToken });
 
-    if (!result) {
-      throw new Exception(`No user found with username: ${username}`);
-    } else {
+    if (result) {
       return result;
     }
+
+    throw new Error(`No user found with id: ${id}`);
   };
 
-  static getUserInfo = async (username: string) => {
-    const result = await UserService.getUser(username);
+  static getUser = async (username: string, sessionToken: ?string) => {
+    const result = await ParseWrapperService.createUserQuery()
+      .equalTo('username', username)
+      .first({ sessionToken });
+
+    if (result) {
+      return result;
+    }
+
+    throw new Error(`No user found with username: ${username}`);
+  };
+
+  static getUserInfo = async (username: string, sessionToken: ?string) => {
+    const result = await UserService.getUser(username, sessionToken);
 
     return Map({
       id: result.id,

@@ -4,7 +4,7 @@ import Parse from 'parse/react-native';
 import { FacebookSDK } from './facebook';
 
 export { BaseObject } from './schema';
-export { ParseWrapperService, UserService, Exception } from './services';
+export { ParseWrapperService, UserService } from './services';
 export {
   ActionTypes as UserAccessActionTypes,
   UserAccessReducer,
