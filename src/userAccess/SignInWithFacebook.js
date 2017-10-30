@@ -9,7 +9,7 @@ import * as UserAccessActions from './Actions';
 function* signInWithFacebookAsync(action) {
   try {
     yield put(UserAccessActions.signInInProgress(Common.createOperationIdMap(action)));
-    const userInfo = yield call(UserService.signInWithFacebook, action.payload.get('scope'));
+    const userInfo = yield call(UserService.signInWithFacebook, action.payload.get('scope'), action.payload.get('userType'));
 
     if (userInfo) {
       yield put(UserAccessActions.signInWithFacebookSucceeded(Common.createUserInfoMap(action, userInfo)));

@@ -48,7 +48,7 @@ export function getCurrentUserInProgress(payload) {
   };
 }
 
-export function signUpWithUsernameAndPassword(username: string, password: string, emailAddress: ?string) {
+export function signUpWithUsernameAndPassword(username: string, password: string, emailAddress: ?string, userType: ?string) {
   return {
     type: ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD,
     payload: Map({
@@ -56,6 +56,7 @@ export function signUpWithUsernameAndPassword(username: string, password: string
       username,
       password,
       emailAddress,
+      userType,
     }),
   };
 }
@@ -88,7 +89,7 @@ export function signUpInProgress(payload) {
   };
 }
 
-export function signInWithUsernameAndPassword(username: string, password: string, emailAddress: ?string) {
+export function signInWithUsernameAndPassword(username: string, password: string, emailAddress: ?string, userType: ?string) {
   return {
     type: ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD,
     payload: Map({
@@ -96,6 +97,7 @@ export function signInWithUsernameAndPassword(username: string, password: string
       username,
       password,
       emailAddress,
+      userType,
     }),
   };
 }

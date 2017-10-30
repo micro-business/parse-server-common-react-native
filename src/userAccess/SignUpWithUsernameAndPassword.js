@@ -15,6 +15,7 @@ function* signUpWithUsernameAndPasswordAsync(action) {
       action.payload.get('username'),
       action.payload.get('password'),
       action.payload.get('emailAddress'),
+      action.payload.get('userType'),
     );
 
     if (userInfo) {
