@@ -5,8 +5,13 @@ import ParseWrapperService from './ParseWrapperService';
 import { FacebookSDK } from '../facebook';
 
 export default class UserService {
-  static signUpWithUsernameAndPassword = async (username: string, password: string, emailAddress: ?string) => {
-    const user = ParseWrapperService.createNewUser({ username, password, emailAddress });
+  static signUpWithUsernameAndPassword = async (username: string, password: string, emailAddress: ?string, userType: ?string) => {
+    const user = ParseWrapperService.createNewUser({
+      username,
+      password,
+      emailAddress,
+      userType,
+    });
     const result = await user.signUp();
 
     return Map({
@@ -14,6 +19,7 @@ export default class UserService {
       username: result.getUsername(),
       emailAddress: result.getEmail(),
       emailAddressVerified: result.get('emailVerified'),
+      userType: result.get('userType'),
     });
   };
 
@@ -25,15 +31,20 @@ export default class UserService {
       username: result.getUsername(),
       emailAddress: result.getEmail(),
       emailAddressVerified: result.get('emailVerified'),
+      userType: result.get('userType'),
     });
   };
 
-  static signInWithFacebook = async (scope: string) => {
+  static signInWithFacebook = async (scope: string, userType: ?string) => {
     await ParseWrapperService.logInWithFacebook(scope);
     const userInfo = await UserService.getCurrentUserInfo();
     const user = await ParseWrapperService.getCurrentUserAsync();
 
     user.set('providerEmail', userInfo.get('emailAddress'));
+
+    if (userType) {
+      user.set('userType', userType);
+    }
 
     await user.save();
 
@@ -94,13 +105,16 @@ export default class UserService {
           avatar: profile.picture,
           emailAddress: profile.email,
           emailAddressVerified: true,
+          userType: user.get('userType'),
         });
       }
+
       return Map({
         id: user.id,
         username: user.getUsername(),
         emailAddress: user.getEmail(),
         emailAddressVerified: user.get('emailVerified'),
+        userType: user.get('userType'),
       });
     }
 
@@ -151,6 +165,21 @@ export default class UserService {
     return Map({
       id: result.id,
       username: result.getUsername(),
+      emailAddress: result.getEmail(),
+      userType: result.get('userType'),
+      providerEmail: result.get('providerEmail'),
+    });
+  };
+
+  static getUserInfoById = async (id: string, sessionToken: ?string) => {
+    const result = await UserService.getUserById(id, sessionToken);
+
+    return Map({
+      id: result.id,
+      username: result.getUsername(),
+      emailAddress: result.getEmail(),
+      userType: result.get('userType'),
+      providerEmail: result.get('providerEmail'),
     });
   };
 }
