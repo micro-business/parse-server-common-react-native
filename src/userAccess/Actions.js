@@ -89,7 +89,7 @@ export function signUpInProgress(payload) {
   };
 }
 
-export function signInWithUsernameAndPassword(username: string, password: string, emailAddress: ?string, userType: ?string) {
+export function signInWithUsernameAndPassword(username: string, password: string, emailAddress: ?string) {
   return {
     type: ActionTypes.USER_ACCESS_SIGNIN_WITH_USERNAME_AND_PASSWORD,
     payload: Map({
@@ -97,7 +97,6 @@ export function signInWithUsernameAndPassword(username: string, password: string
       username,
       password,
       emailAddress,
-      userType,
     }),
   };
 }
@@ -116,12 +115,13 @@ export function signInWithUsernameAndPasswordFailed(payload) {
   };
 }
 
-export function signInWithFacebook(scope: string) {
+export function signInWithFacebook(scope: string, userType: ?string) {
   return {
     type: ActionTypes.USER_ACCESS_SIGNIN_WITH_FACEBOOK,
     payload: Map({
       operationId: uuid(),
       scope,
+      userType,
     }),
   };
 }
