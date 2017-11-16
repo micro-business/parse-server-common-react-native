@@ -1,3 +1,9 @@
+/* eslint-disable vars-on-top */
+/* eslint-disable no-var */
+/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-undef */
+/* eslint-disable no-param-reassign */
+
 /**
  * Copyright 2016 Facebook, Inc.
  *
@@ -26,9 +32,7 @@
  * @providesModule FacebookSDK
  */
 
-const {
-  LoginManager, AccessToken, GraphRequest, GraphRequestManager,
-} = require('react-native-fbsdk');
+const { LoginManager, AccessToken, GraphRequest, GraphRequestManager } = require('react-native-fbsdk');
 
 const emptyFunction = () => {};
 const mapObject = require('fbjs/lib/mapObject');
@@ -111,7 +115,7 @@ var FacebookSDK = {
    */
   api(path: string, ...args: Array<mixed>) {
     const argByType = {};
-    args.forEach((arg) => {
+    args.forEach(arg => {
       argByType[typeof arg] = arg;
     });
 
