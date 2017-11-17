@@ -32,7 +32,9 @@
  * @providesModule FacebookSDK
  */
 
-const { LoginManager, AccessToken, GraphRequest, GraphRequestManager } = require('react-native-fbsdk');
+const {
+  LoginManager, AccessToken, GraphRequest, GraphRequestManager,
+} = require('react-native-fbsdk');
 
 const emptyFunction = () => {};
 const mapObject = require('fbjs/lib/mapObject');
@@ -115,7 +117,7 @@ var FacebookSDK = {
    */
   api(path: string, ...args: Array<mixed>) {
     const argByType = {};
-    args.forEach(arg => {
+    args.forEach((arg) => {
       argByType[typeof arg] = arg;
     });
 
