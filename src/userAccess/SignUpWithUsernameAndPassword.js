@@ -1,10 +1,10 @@
 // @flow
 
+import { UserAccessActionTypes } from 'micro-business-common-react';
+import * as UserAccessActions from 'micro-business-common-react/src/userAccess/Actions';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { UserService } from '../services';
 import Common from './Common';
-import ActionTypes from './ActionTypes';
-import * as UserAccessActions from './Actions';
 
 function* signUpWithUsernameAndPasswordAsync(action) {
   try {
@@ -29,7 +29,7 @@ function* signUpWithUsernameAndPasswordAsync(action) {
 }
 
 const watcher = function* watchSignUpWithUsernameAndPassword() {
-  yield takeLatest(ActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD, signUpWithUsernameAndPasswordAsync);
+  yield takeLatest(UserAccessActionTypes.USER_ACCESS_SIGNUP_WITH_USERNAME_AND_PASSWORD, signUpWithUsernameAndPasswordAsync);
 };
 
 export default watcher;

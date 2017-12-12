@@ -1,10 +1,10 @@
 // @flow
 
+import { UserAccessActionTypes } from 'micro-business-common-react';
+import * as UserAccessActions from 'micro-business-common-react/src/userAccess/Actions';
 import { call, put, takeLatest } from 'redux-saga/effects';
 import { UserService } from '../services';
 import Common from './Common';
-import ActionTypes from './ActionTypes';
-import * as UserAccessActions from './Actions';
 
 function* getCurrentUserAsync(action) {
   try {
@@ -23,7 +23,7 @@ function* getCurrentUserAsync(action) {
 }
 
 const watcher = function* watchGetCurrentUser() {
-  yield takeLatest(ActionTypes.USER_ACCESS_GET_CURRENT_USER, getCurrentUserAsync);
+  yield takeLatest(UserAccessActionTypes.USER_ACCESS_GET_CURRENT_USER, getCurrentUserAsync);
 };
 
 export default watcher;
