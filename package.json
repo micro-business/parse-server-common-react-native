@@ -1,6 +1,6 @@
 {
   "name": "micro-business-parse-server-common-react-native",
-  "version": "1.1.5",
+  "version": "1.1.6",
   "description": "Micro Business Parse Server Common React Native",
   "main": "./src/index.js",
   "scripts": {
@@ -37,7 +37,7 @@
     "jest": "^21.2.1",
     "lint-staged": "^6.0.0",
     "react-native": "^0.51.0",
-    "prettier": "^1.9.1"
+    "prettier": "^1.9.2"
   },
   "jest": {
     "rootDir": "./src"
