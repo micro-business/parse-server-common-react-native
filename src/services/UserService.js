@@ -68,10 +68,26 @@ export default class UserService {
     return user.requestPasswordReset(emailAddress);
   };
 
-  static updatePassword = async (newPassword: string) => {
+  static updateUserDetails = async ({
+    username, password, emailAddress, userType,
+  } = {}) => {
     const user = await ParseWrapperService.getCurrentUserAsync();
 
-    user.setPassword(newPassword);
+    if (username) {
+      user.setUsername(username);
+    }
+
+    if (password) {
+      user.setPassword(password);
+    }
+
+    if (emailAddress) {
+      user.setEmail(emailAddress);
+    }
+
+    if (userType) {
+      user.set('userType', userType);
+    }
 
     return user.save();
   };
