@@ -143,14 +143,6 @@ export default class UserService {
     return user ? user.getSessionToken() : null;
   };
 
-  static getUserForProvidedSessionToken = async (sessionToken) => {
-    const result = await ParseWrapperService.createSessionQuery()
-      .equalTo('sessionToken', sessionToken)
-      .first({ useMasterKey: true });
-
-    return result ? result.get('user') : null;
-  };
-
   static getUserById = async (id: string, sessionToken: ?string) => {
     const result = await ParseWrapperService.createUserQuery()
       .equalTo('objectId', id)
